@@ -5,7 +5,7 @@ from django.db import models
 
 
 class Author(models.Model):
-    author_name = models.ForeignKey(User, on_delete=models.CASCADE)
+    author_name = models.OneToOneField(User, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
 
 
@@ -16,7 +16,7 @@ class Category(models.Model):
 class Post(models.Model):
     NEWS = 'NW'
     POST = 'PT'
-    POSTS =[
+    POSTS = [
         (NEWS, 'news'),
         (POST, 'post')
     ]
@@ -27,6 +27,17 @@ class Post(models.Model):
     text = models.TextField()
     rating_post = models.IntegerField(default=0)
     category = models.ManyToManyField(Category, through='PostCategory')
+
+    def like(self):
+        self.rating_post += 1
+        self.save()
+
+    def dislike(self):
+        self.rating_post -= 1
+        self.save()
+
+    def preview(self):
+        return self.text[0:123] + '...'
 
 
 class PostCategory(models.Model):
@@ -40,3 +51,12 @@ class Comment(models.Model):
     rating_comment = models.IntegerField(default=0)
     text_comment = models.TextField()
     data_comment_creation = models.DateTimeField(auto_now_add=True)
+
+    def like(self):
+        self.rating_comment += 1
+        self.save()
+
+    def dislike(self):
+        self.rating_comment -= 1
+        self.save()
+
