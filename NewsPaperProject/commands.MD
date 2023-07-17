@@ -77,5 +77,33 @@ post4.category.add(category_Building, category_Phisics)
 > 
 > Comment: Comment object (3)
 
+>Post.objects.get(pk=1).like()  
+> 
+> Post.objects.get(pk=1).like() 
+> 
+> Post.objects.get(pk=2).dislike() 
+> 
+> Post.objects.get(pk=3).like()
+> 
+> Post.objects.get(pk=5).like()
+> 
+> Comment.objects.get(pk=1).like()
+> 
+> Comment.objects.get(pk=1).like()
+> 
+> Comment.objects.get(pk=2).like() 
+> 
+> Comment.objects.get(pk=3).dislike() 
 
+
+>Author.objects.get(author_name=User.objects.get(username='ArtPV')).update_rating()
+>
+> a=Author.objects.get(author_name=User.objects.get(username='ArtPV'))              
+>
+> a.rating
+
+
+> best=Author.objects.all().order_by('-rating').values('author_name', 'rating')[0] 
+> 
+> print(best)
 
